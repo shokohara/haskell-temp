@@ -4,5 +4,5 @@ import System.IO
 
 main :: IO ()
 main = do
-  ln <- getLine
+  ln <- Just "a"
   putStrLn $ "Got: " ++ ln
