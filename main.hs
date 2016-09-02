@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Main where
 
@@ -13,4 +12,4 @@ import System.IO.Unsafe
 main :: IO ()
 main = do
   let json = unsafePerformIO $ readFile "event.json"
-  print $ json ^.. key "Records" . _Array . traverse . to ( \o -> ( o^?! key "EventSubscriptionArn" . _String, o^?! key "EventSource" . _String, o^?! key "EventVersion" . _String, o ^.. key "Sns" . _Object . to ( \o -> ( o ))))
+  print $ json ^.. key "Records" . _Array . traverse . to ( \o -> ( o^?! key "EventSubscriptionArn" . _String, o^?! key "EventSource" . _String, o^?! key "EventVersion" . _String, o ^.. key "Sns" . key "Subject" . _String ))
