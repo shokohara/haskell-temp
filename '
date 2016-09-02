@@ -25,17 +25,16 @@ deriveJSON defaultOptions ''Baz
 data Help a = Help {fooId2 :: a} deriving (Show, Read, Eq)
 deriveJSON defaultOptions ''Help
 
-data Record = { eventVersion :: String } deriving (Show, Read, Eq, Generic)
-instance FromJson Record
-instance ToJson Record
-
-data Records = { records :: Maybe Record } deriving (Show, Read, Eq, Generic)
+data Records = { records :: Maybe Record[] } deriving (Show, Read, Eq, Generic)
 instance FromJson Records
 instance ToJson Records
+data Record = { EventVersion :: String } deriving (Show, Read, Eq, Generic)
+instance FromJson Record
+instance ToJson Record
 
 main :: IO ()
 main = do
   let json0 = unsafePerformIO $ readFile "event.json"
-      decoded0 = decode json0 :: Records
+      decoded0 = decode json0 :: Maybe (Records)
   print decoded0
 
